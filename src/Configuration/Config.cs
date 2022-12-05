@@ -5,21 +5,30 @@ using Newtonsoft.Json.Linq;
 
 namespace Configuration
 {
+
     /// <summary>
-    /// 
+    /// manage your config ,
+    /// add your config type  :T,
+    /// load your config from json file,
+    /// validate your json file for your microservices
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public static class Config<T>
         where T : class
     {
-       
+        /// <summary>
+        /// default file name that choose for your microservises config
+        ///default value is : Config.json
+        ///use this property to find config file in product mode
+        /// </summary>
+        public static string DefaultConfigFileName { get; private set; }= "Config.json";
         /// <summary>
         /// path where json file is located
         /// </summary>
-        public static string LoadedPath { get; private set; }
+        public static string LoadedFilePath { get; private set; }
         /// <summary>
         /// check configuration is load or not
-        /// </summary>
+        /// </summary>       
         public static bool IsLoaded
         {
             get
@@ -38,21 +47,15 @@ namespace Configuration
         {
             get
             {
-                if (_Current == null)
-                    Load();
                 return _Current;
             }
             set
             {
-                if (_Current != null)              
-                _Current = value;             
-                OnLoaded?.Invoke(value);
+                _Current = value;
             }
         }
-        /// <summary>
-        /// action where can define onload file
-        /// </summary>
-        public static Action<T> OnLoaded { get; set; }
+
+
         /// <summary>
         /// initialize and load current config json
         /// </summary>
@@ -62,52 +65,54 @@ namespace Configuration
 
         public static void Initialize(string defaultPath, bool throwExceptionWhenHasError = true)
         {
-            string fileAddress = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigGo.json");
+            //find config file in current directory
+            string fileAddress = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DefaultConfigFileName);
             if (!File.Exists(fileAddress))
             {
                 if (!File.Exists(defaultPath))
-                    throw new Exception($"ConfigGo.json file not found in {defaultPath}");
+                    throw new Exception($"{DefaultConfigFileName} file not found in {defaultPath}");
                 Console.WriteLine($"Loaded Config From {defaultPath}");
                 Debug.WriteLine($"Loaded Config From {defaultPath}");
-                LoadedPath = defaultPath;
+                LoadedFilePath = defaultPath;
                 var json = File.ReadAllText(defaultPath);
                 if (throwExceptionWhenHasError)
-                    ValidateConfigGo(json);
+                    ValidateConfigFile(json);
                 Current = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(json);
             }
         }
         /// <summary>
         /// method for load config json
+        /// this method check current directory for find config file first
         /// </summary>
         /// <exception cref="Exception"></exception>
-        static void Load()
+        static async Task Load()
         {
-            string fileAddress = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConfigGo.json");
+            string fileAddress = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DefaultConfigFileName);
             if (!File.Exists(fileAddress))
-                throw new Exception($"ConfigGo.json file not found in {fileAddress} of type {typeof(T).FullName} {Environment.StackTrace}");
+                throw new Exception($"{DefaultConfigFileName} file not found in {fileAddress} of type {typeof(T).FullName} {Environment.StackTrace}");
             Console.WriteLine($"Loaded Config From {fileAddress}");
             Debug.WriteLine($"Loaded Config From {fileAddress}");
-            LoadedPath = fileAddress;
-            var json = File.ReadAllText(fileAddress);
-            ValidateConfigGo(json);
+            LoadedFilePath = fileAddress;
+            string json = await File.ReadAllTextAsync(fileAddress);
+            ValidateConfigFile(json);
             Current = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(json);
         }
         /// <summary>
         /// reload config file
         /// </summary>
-        static void Reload()
+        static async Task Reload()
         {
-            Console.WriteLine($"Reload Config From {LoadedPath}");
-            var json = File.ReadAllText(LoadedPath);
-            ValidateConfigGo(json);
+            Console.WriteLine($"Reload Config From {LoadedFilePath}");
+            var json = await File.ReadAllTextAsync(LoadedFilePath);
+            ValidateConfigFile(json);
             Current = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(json);
-            Console.WriteLine($"Reload success!");
+            Console.WriteLine($"Reload Config success!");
         }
 
         /// <summary>
         /// validate your config to clean depricate properties and add new properties
         /// </summary>
-        public static void ValidateConfigGo(string json)
+        public static void ValidateConfigFile(string json)
         {
             var typeProperties = typeof(T).GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
             var jsonObject = (JObject)JsonConvert.DeserializeObject(json);
@@ -122,7 +127,7 @@ namespace Configuration
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.AppendLine();
             if (exceptionProperties.Count > 0)
-                stringBuilder.AppendLine($"ConfigGo found properties: {string.Join(",", exceptionProperties)} in your configGo json file but its not found in your type {typeof(T).Name} please clean and remove this property from your json file!");
+                stringBuilder.AppendLine($"{DefaultConfigFileName} found properties: {string.Join(",", exceptionProperties)} in your config json file but its not found in your type {typeof(T).Name} please clean and remove this property from your json file!");
             exceptionProperties.Clear();
             foreach (var property in typeProperties)
             {
@@ -130,7 +135,7 @@ namespace Configuration
                     exceptionProperties.Add(property.Name);
             }
             if (exceptionProperties.Count > 0)
-                stringBuilder.AppendLine($"type {typeof(T).Name} found properties: {string.Join(",", exceptionProperties)} but its not found in your ConfigGo json file, please add this properties in your json file!");
+                stringBuilder.AppendLine($"type {typeof(T).Name} found properties: {string.Join(",", exceptionProperties)} but its not found in your Config json file, please add this properties in your json file!");
             var exception = stringBuilder.ToString();
             if (!string.IsNullOrEmpty(exception.Trim()))
                 throw new Exception(exception);
