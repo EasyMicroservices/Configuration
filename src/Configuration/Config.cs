@@ -40,10 +40,7 @@ namespace Configuration
             {
                 return _Current;
             }
-            set
-            {
-                _Current = value;
-            }
+           
         }
       
         /// <summary>

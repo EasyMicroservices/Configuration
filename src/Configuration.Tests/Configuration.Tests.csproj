@@ -21,6 +21,7 @@
 		<EmbeddedResource Include="Resources\**" />
 	</ItemGroup>
 	<ItemGroup>
+	  <None Remove="Resources\Config.json" />
 	  <None Remove="Resources\EmptyConfigFile.json" />
 	  <None Remove="Resources\InvalidConfigFile.json" />
 	</ItemGroup>
