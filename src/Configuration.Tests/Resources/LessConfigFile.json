@@ -1,0 +1,15 @@
+{
+  "Port": 8080,
+  "Ports": [ 8080, 8060, 6100 ],
+  "ConnectionString": "Server=127.0.0.1;Database=DbName;User ID=test;Password=test", 
+  "Persons": [
+    {
+      "Name": "mahdi",
+      "Address": "Iran-mashhad-beheshti st"
+    },
+    {
+      "Name": "Ali",
+      "Address": "Canada-Vancouver"
+    }
+  ]
+}
