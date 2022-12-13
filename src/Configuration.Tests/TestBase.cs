@@ -35,15 +35,15 @@ namespace Configuration.Tests
         /// <summary>
         /// json config file which match the config C# class
         /// </summary>
-        public string ExactConfigFileName = "ExactConfigFileName.json";
+        public string ExactConfigFile = "ExactConfigFile.json";
         /// <summary>
         /// json config file which have less property in compare the config C# class
         /// </summary>
-        public string LessConfigFileName = "LessConfigFileName.json";
+        public string LessConfigFile = "LessConfigFile.json";
         /// <summary>
         /// json config file which have more property in compare the config C# class
         /// </summary>
-        public string MoreConfigFileName = "MoreConfigFileName.json";
+        public string MoreConfigFile = "MoreConfigFile.json";
         /// <summary>
         /// Invalid json config file
         /// </summary>
