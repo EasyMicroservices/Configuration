@@ -17,7 +17,7 @@ namespace Configuration.Tests
             var assembly = typeof(TestBase).Assembly;
             var resourceNames = assembly.GetManifestResourceNames().FirstOrDefault(n => n.EndsWith(fileName));
             StreamReader reader = new StreamReader(assembly.GetManifestResourceStream(resourceNames));
-            string json =await  reader.ReadToEndAsync();
+            string json = await reader.ReadToEndAsync();
             string fileAddress = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
             await File.WriteAllTextAsync(fileAddress, json);
             return JsonConvert.DeserializeObject<T>(json);
@@ -31,7 +31,12 @@ namespace Configuration.Tests
             string fileAddress = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
             await File.WriteAllTextAsync(fileAddress, json);
         }
- 
+        public void RemoveFile(string filePath)
+        {
+            if (File.Exists(filePath))
+                File.Delete(filePath);
+        }
+
         /// <summary>
         /// json config file which match the config C# class
         /// </summary>
