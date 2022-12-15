@@ -63,6 +63,10 @@
         /// <param name="throwExceptionWhenHasError"></param>
         void SetOption(string defaultConfigFileName, string loadedFilePath, bool throwExceptionWhenHasError)
         {
+            if(string.IsNullOrEmpty(defaultConfigFileName))
+                throw new Exception("DefaultConfigFileName could not be null.");
+            if (string.IsNullOrEmpty(loadedFilePath))
+                throw new Exception("LoadedFilePath could not be null.");
             DefaultConfigFileName = defaultConfigFileName;
             LoadedFilePath = loadedFilePath;
             ThrowExceptionWhenHasError = throwExceptionWhenHasError;
