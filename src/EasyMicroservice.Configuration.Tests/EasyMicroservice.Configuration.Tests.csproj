@@ -25,8 +25,8 @@
 	  <None Remove="Resources\EmptyConfigFile.json" />
 	  <None Remove="Resources\InvalidConfigFile.json" />
 	</ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Configuration\Configuration.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\EasyMicroservice.Configuration\EasyMicroservice.Configuration.csproj" />
+	</ItemGroup>
 
 </Project>

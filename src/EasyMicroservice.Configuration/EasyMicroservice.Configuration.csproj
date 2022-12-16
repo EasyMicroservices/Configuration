@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>net6.0</TargetFrameworks>
+		<Authors>Easy Microservice</Authors>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Version>0.0.0.1</Version>
+		<Description>load config file from json and validate it</Description>
+		<Copyright>EasyMicroservice@gmail.com</Copyright>
+		<Copyright>www.Easymicroservice.ir</Copyright>
+		<PackageTags>Config,Option,Setting</PackageTags>
+		<PackageProjectUrl>https://github.com/Easy-Microservise/Configuration</PackageProjectUrl>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+	</ItemGroup>
+</Project>
