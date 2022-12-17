@@ -1,4 +1,4 @@
-﻿namespace Configuration
+﻿namespace EasyMicroservice.Configuration.Models
 {
     public class Option
     {
@@ -40,21 +40,21 @@
         public Option(string defaultConfigFileName, bool throwExceptionWhenHasError)
         {
             SetOption(defaultConfigFileName, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, defaultConfigFileName), throwExceptionWhenHasError);
-        }   
+        }
         /// <summary>
         /// default file name that choose for your microservises config
         ///default value is : Config.json
         ///use this property to find config file in product mode
         /// </summary>
-        public  string DefaultConfigFileName { get; private set; }
+        public string DefaultConfigFileName { get; private set; }
         /// <summary>
         /// path where json file is located
         /// </summary>
-        public  string LoadedFilePath { get; private set; }
+        public string LoadedFilePath { get; private set; }
         /// <summary>
         /// throw Exception when validate config file
         /// </summary>
-        public  bool ThrowExceptionWhenHasError { get; private set; }
+        public bool ThrowExceptionWhenHasError { get; private set; }
         /// <summary>
         /// set option value
         /// </summary>
@@ -63,7 +63,7 @@
         /// <param name="throwExceptionWhenHasError"></param>
         void SetOption(string defaultConfigFileName, string loadedFilePath, bool throwExceptionWhenHasError)
         {
-            if(string.IsNullOrEmpty(defaultConfigFileName))
+            if (string.IsNullOrEmpty(defaultConfigFileName))
                 throw new Exception("DefaultConfigFileName could not be null.");
             if (string.IsNullOrEmpty(loadedFilePath))
                 throw new Exception("LoadedFilePath could not be null.");

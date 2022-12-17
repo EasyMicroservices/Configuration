@@ -1,9 +1,10 @@
+using EasyMicroservice.Configuration.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Configuration.Tests
+namespace EasyMicroservice.Configuration.Tests
 {
     public class ConfigTest : TestBase
     {
@@ -96,10 +97,10 @@ namespace Configuration.Tests
 
         [Fact]
         public async Task LoadConfigFile_When_NoFileExist_MustCatchException()
-        {          
+        {
             var loadedConfiguration = new Config<ConfigBase>();
             var ex = await Assert.ThrowsAnyAsync<Exception>(async () => await loadedConfiguration.Initialize(new Option(ExactConfigFile)));
-           
+
 
         }
     }
