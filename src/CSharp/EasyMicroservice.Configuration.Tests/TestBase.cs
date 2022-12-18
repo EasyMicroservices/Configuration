@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Configuration.Tests
+namespace EasyMicroservice.Configuration.Tests
 {
     public class TestBase
     {

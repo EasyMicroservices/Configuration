@@ -1,9 +1,10 @@
 ﻿using System.Diagnostics;
 using System.Text;
+using EasyMicroservice.Configuration.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Configuration
+namespace EasyMicroservice.Configuration
 {
 
     /// <summary>
@@ -40,9 +41,9 @@ namespace Configuration
             {
                 return _Current;
             }
-           
+
         }
-      
+
         /// <summary>
         /// 
         /// </summary>
@@ -53,7 +54,7 @@ namespace Configuration
         public async Task Initialize(Option option)
         {
             Option = option ?? new Option();
-            
+
             await Load();
         }
         /// <summary>

@@ -1,9 +1,10 @@
-﻿using System;
+﻿using EasyMicroservice.Configuration.Models;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Configuration.Tests
+namespace EasyMicroservice.Configuration.Tests
 {
     public class OptionTest : TestBase
     {
@@ -21,9 +22,9 @@ namespace Configuration.Tests
         [InlineData("my.json", false)]
         [InlineData("Config.json", true)]
         [Theory]
-        public async Task GenerateOption_With_default_LoadedFilePath(string defaultConfigFileName,  bool throwExceptionWhenHasError)
+        public async Task GenerateOption_With_default_LoadedFilePath(string defaultConfigFileName, bool throwExceptionWhenHasError)
         {
-            var option = new Option(defaultConfigFileName,  throwExceptionWhenHasError);
+            var option = new Option(defaultConfigFileName, throwExceptionWhenHasError);
             Assert.Equal(defaultConfigFileName, option.DefaultConfigFileName);
             Assert.Equal(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, defaultConfigFileName), option.LoadedFilePath);
             Assert.Equal(throwExceptionWhenHasError, option.ThrowExceptionWhenHasError);
@@ -64,9 +65,9 @@ namespace Configuration.Tests
         [InlineData("config.json", null)]
         [InlineData(null, @"C:\Users\admin")]
         [Theory]
-        public  void GenerateOption_InvaliDdata_MustCatchException(string defaultConfigFileName, string loadedFilePath)
-        {           
-              Assert.ThrowsAny<Exception>( () => new Option(defaultConfigFileName, loadedFilePath));
+        public void GenerateOption_InvaliDdata_MustCatchException(string defaultConfigFileName, string loadedFilePath)
+        {
+            Assert.ThrowsAny<Exception>(() => new Option(defaultConfigFileName, loadedFilePath));
         }
     }
 }
