@@ -1,4 +1,4 @@
-﻿namespace EasyMicroservice.Configuration.Models
+﻿namespace EasyMicroservices.Configuration.Models
 {
     public class Option
     {
