@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyMicroservice.Configuration", "EasyMicroservice.Configuration\EasyMicroservice.Configuration.csproj", "{4CAB3EB1-D847-4D31-9CE3-21B3B4C46923}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyMicroservices.Configuration", "EasyMicroservices.Configuration\EasyMicroservices.Configuration.csproj", "{4CAB3EB1-D847-4D31-9CE3-21B3B4C46923}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyMicroservice.Configuration.Tests", "EasyMicroservice.Configuration.Tests\EasyMicroservice.Configuration.Tests.csproj", "{FF55B690-A545-43CB-AAC8-BFF07CA59DEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyMicroservices.Configuration.Tests", "EasyMicroservices.Configuration.Tests\EasyMicroservices.Configuration.Tests.csproj", "{FF55B690-A545-43CB-AAC8-BFF07CA59DEB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{5501E0A1-78AF-4077-A7A5-99FC9BAB4B84}"
 EndProject

@@ -1,10 +1,10 @@
-﻿using EasyMicroservice.Configuration.Models;
+﻿using EasyMicroservices.Configuration.Models;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EasyMicroservice.Configuration.Tests
+namespace EasyMicroservices.Configuration.Tests
 {
     public class OptionTest : TestBase
     {

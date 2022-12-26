@@ -1,10 +1,10 @@
 ﻿using System.Diagnostics;
 using System.Text;
-using EasyMicroservice.Configuration.Models;
+using EasyMicroservices.Configuration.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace EasyMicroservice.Configuration
+namespace EasyMicroservices.Configuration
 {
 
     /// <summary>

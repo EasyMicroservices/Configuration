@@ -1,10 +1,11 @@
-using EasyMicroservice.Configuration.Models;
+using EasyMicroservices.Configuration;
+using EasyMicroservices.Configuration.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EasyMicroservice.Configuration.Tests
+namespace EasyMicroservices.Configuration.Tests
 {
     public class ConfigTest : TestBase
     {
