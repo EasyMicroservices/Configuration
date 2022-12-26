@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net6.0</TargetFrameworks>
-		<Authors>Mahdi delzendeh, Ali Yosefi</Authors>
+		<Authors>EasyMicroservices</Authors>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Version>0.0.0.1</Version>
 		<Description>load config file from json and validate it</Description>
-		<Copyright>EasyMicroservice@gmail.com</Copyright>
+		<Copyright>EasyMicroservices@gmail.com</Copyright>
 		<Copyright>www.Easymicroservice.ir</Copyright>
 		<PackageTags>Config,Option,Setting</PackageTags>
-		<PackageProjectUrl>https://github.com/Easy-Microservise/Configuration</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/EasyMicroservices/Configuration</PackageProjectUrl>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
