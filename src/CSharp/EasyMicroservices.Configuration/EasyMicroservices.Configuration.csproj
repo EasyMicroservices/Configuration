@@ -1,18 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<TargetFrameworks>net6.0</TargetFrameworks>
-		<Authors>EasyMicroservices</Authors>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>0.0.0.1</Version>
-		<Description>load config file from json and validate it</Description>
-		<Copyright>EasyMicroservices@gmail.com</Copyright>
-		<Copyright>www.Easymicroservice.ir</Copyright>
-		<PackageTags>Config,Option,Setting</PackageTags>
-		<PackageProjectUrl>https://github.com/EasyMicroservices/Configuration</PackageProjectUrl>
-		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-		<ImplicitUsings>enable</ImplicitUsings>
-	</PropertyGroup>
-	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-	</ItemGroup>
+  
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net45</TargetFrameworks>
+    <Platforms>AnyCPU;x64;x86</Platforms>
+    <Authors>EasyMicroservices</Authors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.0.0.1</Version>
+    <Description>config settings.</Description>
+    <Copyright>EasyMicroservices@gmail.com</Copyright>
+    <PackageTags>config,configs,setting,settings,option,options</PackageTags>
+    <PackageProjectUrl>https://github.com/EasyMicroservices/Configuration</PackageProjectUrl>
+    <LangVersion>latest</LangVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>.\bin\$(Configuration)\$(TargetFramework)\EasyMicroservices.Configuration.xml</DocumentationFile>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="EasyMicroservices.Utilities" Version="0.0.0.9" />
+  </ItemGroup>
+  
 </Project>
