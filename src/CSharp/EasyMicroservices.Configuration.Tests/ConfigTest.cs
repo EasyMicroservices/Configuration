@@ -1,9 +1,6 @@
 using EasyMicroservices.Configuration.Interfaces;
 using EasyMicroservices.Configuration.JsonConfig.Providers;
 using EasyMicroservices.Configuration.Models;
-using EasyMicroservices.FileManager.Interfaces;
-using EasyMicroservices.FileManager.Providers.DirectoryProviders;
-using EasyMicroservices.FileManager.Providers.FileProviders;
 using EasyMicroservices.FileManager.Providers.PathProviders;
 using EasyMicroservices.Serialization.Interfaces;
 using EasyMicroservices.Serialization.Newtonsoft.Json.Providers;
@@ -21,17 +18,12 @@ namespace EasyMicroservices.Configuration.Tests
 
         }
 
-        IFileManagerProvider GetFileProvider()
-        {
-            return new DiskFileProvider(new DiskDirectoryProvider(AppDomain.CurrentDomain.BaseDirectory));
-        }
-
         ITextSerialization GetSerializer()
         {
             return new NewtonsoftJsonProvider();
         }
 
-        void AssertFile(JsonConfigProvider loadedConfiguration, ConfigBase config, ConfigBase loaded)
+        async Task AssertFile(JsonConfigProvider loadedConfiguration, ConfigBase config, ConfigBase loaded)
         {
             Assert.True(loaded != null);
             Assert.Equal(config.ConnectionString, loaded.ConnectionString);
@@ -39,7 +31,7 @@ namespace EasyMicroservices.Configuration.Tests
             Assert.True(config.Ports.SequenceEqual(loaded.Ports));
             Assert.Equal(config.Persons.Count, loaded.Persons.Count);
             Assert.Equal(config.LogType, loaded.LogType);
-            RemoveFile(loadedConfiguration.Option.LoadedFilePath);
+            await RemoveFile(loadedConfiguration.Option.LoadedFilePath);
         }
 
         IConfigProvider _provider;
@@ -49,7 +41,7 @@ namespace EasyMicroservices.Configuration.Tests
             var config = await GenerateConfigFile<ConfigBase>(ExactConfigFile);
             var loadedConfiguration = new JsonConfigProvider(new Option(new SystemPathProvider(), ExactConfigFile), GetFileProvider(), GetSerializer());
             var loaded = await loadedConfiguration.GetValue<ConfigBase>();
-            AssertFile(loadedConfiguration, config, loaded);
+            await AssertFile(loadedConfiguration, config, loaded);
         }
 
         [Fact]
@@ -58,7 +50,7 @@ namespace EasyMicroservices.Configuration.Tests
             var config = await GenerateConfigFile<ConfigBase>("Config.json");
             var loadedConfiguration = new JsonConfigProvider(new Option(new SystemPathProvider(), "Config.json"), GetFileProvider(), GetSerializer());
             var loaded = await loadedConfiguration.GetValue<ConfigBase>();
-            AssertFile(loadedConfiguration, config, loaded);
+            await AssertFile(loadedConfiguration, config, loaded);
         }
 
 
@@ -69,7 +61,7 @@ namespace EasyMicroservices.Configuration.Tests
             var config = await GenerateConfigFile<ConfigBase>("Config.json");
             var loadedConfiguration = new JsonConfigProvider(GetFileProvider(), GetSerializer());
             var loaded = await loadedConfiguration.GetValue<ConfigBase>();
-            AssertFile(loadedConfiguration, config, loaded);
+            await AssertFile(loadedConfiguration, config, loaded);
         }
 
         [Fact]
@@ -78,7 +70,7 @@ namespace EasyMicroservices.Configuration.Tests
             var config = await GenerateConfigFile<ConfigBase>(MoreConfigFile);
             var loadedConfiguration = new JsonConfigProvider(new Option(new SystemPathProvider(), MoreConfigFile), GetFileProvider(), GetSerializer());
             var ex = await Assert.ThrowsAnyAsync<Exception>(async () => await loadedConfiguration.GetValue<ConfigBase>());
-            RemoveFile(loadedConfiguration.Option.LoadedFilePath);
+            await RemoveFile(loadedConfiguration.Option.LoadedFilePath);
         }
         [Fact]
         public async Task LoadConfigFile_WithLessProperty_MustCatchException()
@@ -86,7 +78,7 @@ namespace EasyMicroservices.Configuration.Tests
             var config = await GenerateConfigFile<ConfigBase>(LessConfigFile);
             var loadedConfiguration = new JsonConfigProvider(new Option(new SystemPathProvider(), LessConfigFile), GetFileProvider(), GetSerializer());
             var ex = await Assert.ThrowsAnyAsync<Exception>(async () => await loadedConfiguration.GetValue<ConfigBase>());
-            RemoveFile(loadedConfiguration.Option.LoadedFilePath);
+            await RemoveFile(loadedConfiguration.Option.LoadedFilePath);
 
         }
         [Fact]
@@ -95,7 +87,7 @@ namespace EasyMicroservices.Configuration.Tests
             await GenerateInvalidConfigFile(InvalidConfigFile);
             var loadedConfiguration = new JsonConfigProvider(new Option(new SystemPathProvider(), InvalidConfigFile), GetFileProvider(), GetSerializer());
             var ex = await Assert.ThrowsAnyAsync<Exception>(async () => await loadedConfiguration.GetValue<ConfigBase>());
-            RemoveFile(loadedConfiguration.Option.LoadedFilePath);
+            await RemoveFile(loadedConfiguration.Option.LoadedFilePath);
 
         }
         [Fact]
@@ -104,8 +96,7 @@ namespace EasyMicroservices.Configuration.Tests
             await GenerateInvalidConfigFile(EmptyConfigFile);
             var loadedConfiguration = new JsonConfigProvider(new Option(new SystemPathProvider(), EmptyConfigFile), GetFileProvider(), GetSerializer());
             var ex = await Assert.ThrowsAnyAsync<Exception>(async () => await loadedConfiguration.GetValue<ConfigBase>());
-            RemoveFile(loadedConfiguration.Option.LoadedFilePath);
-
+            await RemoveFile(loadedConfiguration.Option.LoadedFilePath);
         }
 
         [Fact]
