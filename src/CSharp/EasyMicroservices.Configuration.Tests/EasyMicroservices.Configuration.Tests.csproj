@@ -1,32 +1,41 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+  <Choose>
+    <When Condition="$(SolutionFileName.Contains('Net7'))">
+      <PropertyGroup>
+        <TargetFrameworks>net7.0</TargetFrameworks>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <TargetFrameworks>netcoreapp3.1;net6.0;net48;net7.0</TargetFrameworks>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+  
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
-    <PackageReference Include="xunit" Version="2.4.2" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="coverlet.collector" Version="3.2.0">
+    <PackageReference Include="EasyMicroservices.Tests" Version="0.0.0.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+  
 	<ItemGroup>
 		<EmbeddedResource Include="Resources\**" />
 	</ItemGroup>
+  
 	<ItemGroup>
 	  <None Remove="Resources\Config.json" />
 	  <None Remove="Resources\EmptyConfigFile.json" />
 	  <None Remove="Resources\InvalidConfigFile.json" />
 	</ItemGroup>
+  
 	<ItemGroup>
-	  <ProjectReference Include="..\EasyMicroservice.Configuration\EasyMicroservices.Configuration.csproj" />
+	  <ProjectReference Include="..\EasyMicroservices.Configuration.JsonFileConfig\EasyMicroservices.Configuration.JsonFileConfig.csproj" />
 	</ItemGroup>
 
 </Project>

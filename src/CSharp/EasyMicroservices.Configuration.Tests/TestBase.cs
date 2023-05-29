@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using EasyMicroservices.FileManager.Interfaces;
+using EasyMicroservices.FileManager.Providers.DirectoryProviders;
+using EasyMicroservices.FileManager.Providers.FileProviders;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,29 +15,39 @@ namespace EasyMicroservices.Configuration.Tests
         static TestBase()
         {
         }
+
+        public IFileManagerProvider GetFileProvider()
+        {
+            return new DiskFileProvider(new DiskDirectoryProvider(AppDomain.CurrentDomain.BaseDirectory));
+        }
+
         public async Task<T> GenerateConfigFile<T>(string fileName)
         {
+            var fileProvider = GetFileProvider();
             var assembly = typeof(TestBase).Assembly;
             var resourceNames = assembly.GetManifestResourceNames().FirstOrDefault(n => n.EndsWith(fileName));
             StreamReader reader = new StreamReader(assembly.GetManifestResourceStream(resourceNames));
             string json = await reader.ReadToEndAsync();
-            string fileAddress = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
-            await File.WriteAllTextAsync(fileAddress, json);
+            string fileAddress = fileProvider.PathProvider.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
+            await fileProvider.WriteAllTextAsync(fileAddress, json);
             return JsonConvert.DeserializeObject<T>(json);
         }
         public async Task GenerateInvalidConfigFile(string fileName)
         {
+            var fileProvider = GetFileProvider();
             var assembly = typeof(TestBase).Assembly;
             var resourceNames = assembly.GetManifestResourceNames().FirstOrDefault(n => n.EndsWith(fileName));
             StreamReader reader = new StreamReader(assembly.GetManifestResourceStream(resourceNames));
             string json = await reader.ReadToEndAsync();
-            string fileAddress = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
-            await File.WriteAllTextAsync(fileAddress, json);
+            string fileAddress = fileProvider.PathProvider.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
+            await fileProvider.WriteAllTextAsync(fileAddress, json);
         }
-        public void RemoveFile(string filePath)
+
+        public async Task RemoveFile(string filePath)
         {
-            if (File.Exists(filePath))
-                File.Delete(filePath);
+            var fileProvider = GetFileProvider();
+            if (await fileProvider.IsExistFileAsync(filePath))
+                await fileProvider.DeleteFileAsync(filePath);
         }
 
         /// <summary>

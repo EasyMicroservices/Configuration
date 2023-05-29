@@ -1,45 +1,60 @@
-﻿namespace EasyMicroservices.Configuration.Models
+﻿using EasyMicroservices.FileManager.Interfaces;
+using System;
+
+namespace EasyMicroservices.Configuration.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Option
     {
         /// <summary>
         /// set completed option
         /// </summary>
+        /// <param name="pathProvider"></param>
         /// <param name="defaultConfigFileName"> default file name that choose for your microservises config</param>
         /// <param name="loadedFilePath">path where json file is located</param>
         /// <param name="throwExceptionWhenHasError">throw Exception when validate config file</param>
-        public Option(string defaultConfigFileName, string loadedFilePath, bool throwExceptionWhenHasError)
+        public Option(IPathProvider pathProvider, string defaultConfigFileName, string loadedFilePath, bool throwExceptionWhenHasError)
         {
-            SetOption(defaultConfigFileName, loadedFilePath, throwExceptionWhenHasError);
+            SetOption(pathProvider, defaultConfigFileName, loadedFilePath, throwExceptionWhenHasError);
         }
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="pathProvider"></param>
         /// <param name="defaultConfigFileName"></param>
         /// <param name="loadedFilePath"></param>
-        public Option(string defaultConfigFileName, string loadedFilePath)
+        public Option(IPathProvider pathProvider, string defaultConfigFileName, string loadedFilePath)
         {
-            SetOption(defaultConfigFileName, loadedFilePath, true);
+            SetOption(pathProvider, defaultConfigFileName, loadedFilePath, true);
         }
         /// <summary>
         /// change only config file name
         /// </summary>
+        /// <param name="pathProvider"></param>
         /// <param name="defaultConfigFileName"></param>
-        public Option(string defaultConfigFileName)
+        public Option(IPathProvider pathProvider, string defaultConfigFileName)
         {
-            SetOption(defaultConfigFileName, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, defaultConfigFileName), true);
+            SetOption(pathProvider, defaultConfigFileName, pathProvider.Combine(AppDomain.CurrentDomain.BaseDirectory, defaultConfigFileName), true);
         }
         /// <summary>
         /// set default value for option
         /// </summary>
-        public Option()
+        public Option(IPathProvider pathProvider)
         {
             string defaultConfigFileName = "Config.json";
-            SetOption(defaultConfigFileName, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, defaultConfigFileName), true);
+            SetOption(pathProvider, defaultConfigFileName, pathProvider.Combine(AppDomain.CurrentDomain.BaseDirectory, defaultConfigFileName), true);
         }
-        public Option(string defaultConfigFileName, bool throwExceptionWhenHasError)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pathProvider"></param>
+        /// <param name="defaultConfigFileName"></param>
+        /// <param name="throwExceptionWhenHasError"></param>
+        public Option(IPathProvider pathProvider, string defaultConfigFileName, bool throwExceptionWhenHasError)
         {
-            SetOption(defaultConfigFileName, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, defaultConfigFileName), throwExceptionWhenHasError);
+            SetOption(pathProvider, defaultConfigFileName, pathProvider.Combine(AppDomain.CurrentDomain.BaseDirectory, defaultConfigFileName), throwExceptionWhenHasError);
         }
         /// <summary>
         /// default file name that choose for your microservises config
@@ -56,12 +71,17 @@
         /// </summary>
         public bool ThrowExceptionWhenHasError { get; private set; }
         /// <summary>
+        /// 
+        /// </summary>
+        public IPathProvider PathProvider { get; private set; }
+        /// <summary>
         /// set option value
         /// </summary>
+        /// <param name="pathProvider"></param>
         /// <param name="defaultConfigFileName"></param>
         /// <param name="loadedFilePath"></param>
         /// <param name="throwExceptionWhenHasError"></param>
-        void SetOption(string defaultConfigFileName, string loadedFilePath, bool throwExceptionWhenHasError)
+        void SetOption(IPathProvider pathProvider, string defaultConfigFileName, string loadedFilePath, bool throwExceptionWhenHasError)
         {
             if (string.IsNullOrEmpty(defaultConfigFileName))
                 throw new Exception("DefaultConfigFileName could not be null.");
@@ -70,6 +90,7 @@
             DefaultConfigFileName = defaultConfigFileName;
             LoadedFilePath = loadedFilePath;
             ThrowExceptionWhenHasError = throwExceptionWhenHasError;
+            PathProvider = pathProvider;
         }
     }
 }

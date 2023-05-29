@@ -1,4 +1,5 @@
 ﻿using EasyMicroservices.Configuration.Models;
+using EasyMicroservices.FileManager.Providers.PathProviders;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace EasyMicroservices.Configuration.Tests
         [Theory]
         public async Task GenerateOption_WithCompletedAccess(string defaultConfigFileName, string loadedFilePath, bool throwExceptionWhenHasError)
         {
-            var option = new Option(defaultConfigFileName, loadedFilePath, throwExceptionWhenHasError);
+            var option = new Option(new SystemPathProvider(), defaultConfigFileName, loadedFilePath, throwExceptionWhenHasError);
             Assert.Equal(defaultConfigFileName, option.DefaultConfigFileName);
             Assert.Equal(loadedFilePath, option.LoadedFilePath);
             Assert.Equal(throwExceptionWhenHasError, option.ThrowExceptionWhenHasError);
@@ -24,7 +25,7 @@ namespace EasyMicroservices.Configuration.Tests
         [Theory]
         public async Task GenerateOption_With_default_LoadedFilePath(string defaultConfigFileName, bool throwExceptionWhenHasError)
         {
-            var option = new Option(defaultConfigFileName, throwExceptionWhenHasError);
+            var option = new Option(new SystemPathProvider(), defaultConfigFileName, throwExceptionWhenHasError);
             Assert.Equal(defaultConfigFileName, option.DefaultConfigFileName);
             Assert.Equal(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, defaultConfigFileName), option.LoadedFilePath);
             Assert.Equal(throwExceptionWhenHasError, option.ThrowExceptionWhenHasError);
@@ -34,7 +35,7 @@ namespace EasyMicroservices.Configuration.Tests
         [Theory]
         public async Task GenerateOption_With_default_ThrowExceptionWhenHasError_True(string defaultConfigFileName, string loadedFilePath)
         {
-            var option = new Option(defaultConfigFileName, loadedFilePath);
+            var option = new Option(new SystemPathProvider(), defaultConfigFileName, loadedFilePath);
             Assert.Equal(defaultConfigFileName, option.DefaultConfigFileName);
             Assert.Equal(loadedFilePath, option.LoadedFilePath);
             Assert.True(option.ThrowExceptionWhenHasError);
@@ -44,7 +45,7 @@ namespace EasyMicroservices.Configuration.Tests
         [Theory]
         public async Task GenerateOption_With_Only_DefaultConfigFileName(string defaultConfigFileName)
         {
-            var option = new Option(defaultConfigFileName);
+            var option = new Option(new SystemPathProvider(), defaultConfigFileName);
             Assert.Equal(defaultConfigFileName, option.DefaultConfigFileName);
             Assert.Equal(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, defaultConfigFileName), option.LoadedFilePath);
             Assert.True(option.ThrowExceptionWhenHasError);
@@ -54,7 +55,7 @@ namespace EasyMicroservices.Configuration.Tests
         [Fact]
         public async Task GenerateOption_Default_Value()
         {
-            var option = new Option();
+            var option = new Option(new SystemPathProvider());
             var defaultConfigFileName = "Config.json";
             Assert.Equal(defaultConfigFileName, option.DefaultConfigFileName);
             Assert.Equal(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, defaultConfigFileName), option.LoadedFilePath);
@@ -67,7 +68,7 @@ namespace EasyMicroservices.Configuration.Tests
         [Theory]
         public void GenerateOption_InvaliDdata_MustCatchException(string defaultConfigFileName, string loadedFilePath)
         {
-            Assert.ThrowsAny<Exception>(() => new Option(defaultConfigFileName, loadedFilePath));
+            Assert.ThrowsAny<Exception>(() => new Option(new SystemPathProvider(), defaultConfigFileName, loadedFilePath));
         }
     }
 }

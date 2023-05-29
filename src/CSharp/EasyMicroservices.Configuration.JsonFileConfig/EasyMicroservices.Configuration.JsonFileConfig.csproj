@@ -8,7 +8,7 @@
     </When>
     <Otherwise>
       <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net45</TargetFrameworks>
+        <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0</TargetFrameworks>
       </PropertyGroup>
     </Otherwise>
   </Choose>
@@ -24,11 +24,19 @@
     <PackageProjectUrl>https://github.com/EasyMicroservices/Configuration</PackageProjectUrl>
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>.\bin\$(Configuration)\$(TargetFramework)\EasyMicroservices.Configuration.xml</DocumentationFile>
+    <DocumentationFile>.\bin\$(Configuration)\$(TargetFramework)\EasyMicroservices.Configuration.JsonFileConfig.xml</DocumentationFile>
   </PropertyGroup>
-  
+
   <ItemGroup>
-    <PackageReference Include="EasyMicroservices.Utilities" Version="0.0.0.9" />
+    <PackageReference Include="EasyMicroservices.FileManager" Version="0.0.0.3" />
+    <PackageReference Include="EasyMicroservices.Serialization.Newtonsoft.Json">
+      <Version>0.0.0.1</Version>
+    </PackageReference>
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EasyMicroservices.Configuration\EasyMicroservices.Configuration.csproj" />
   </ItemGroup>
   
 </Project>
