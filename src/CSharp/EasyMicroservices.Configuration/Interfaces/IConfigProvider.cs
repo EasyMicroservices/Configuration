@@ -27,5 +27,11 @@ namespace EasyMicroservices.Configuration.Interfaces
         /// <param name="key"></param>
         /// <returns></returns>
         Task<T> GetValue<T>(string key);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        Task<T> GetValue<T>();
     }
 }

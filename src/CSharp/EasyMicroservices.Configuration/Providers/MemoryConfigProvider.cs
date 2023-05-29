@@ -23,6 +23,28 @@ namespace EasyMicroservices.Configuration.Providers
         /// <summary>
         /// 
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public override Task<T> GetValue<T>(string key)
+        {
+            throw new System.NotImplementedException();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public override Task<T> GetValue<T>()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <returns></returns>
