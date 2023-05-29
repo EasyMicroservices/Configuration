@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test-Layer", "Test-Layer", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Implementations", "Implementations", "{4A7333D2-63CE-43CA-B5F8-72DD7795B3E1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyMicroservices.Configuration.JsonFileConfig", "EasyMicroservices.Configuration.JsonFileConfig\EasyMicroservices.Configuration.JsonFileConfig.csproj", "{1F8AD1C4-C006-4083-9BC3-A79EBD3354AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{FF55B690-A545-43CB-AAC8-BFF07CA59DEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF55B690-A545-43CB-AAC8-BFF07CA59DEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF55B690-A545-43CB-AAC8-BFF07CA59DEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F8AD1C4-C006-4083-9BC3-A79EBD3354AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F8AD1C4-C006-4083-9BC3-A79EBD3354AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F8AD1C4-C006-4083-9BC3-A79EBD3354AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F8AD1C4-C006-4083-9BC3-A79EBD3354AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +45,7 @@ Global
 		{2449F884-7510-46FA-A237-2D12CBD42A49} = {5501E0A1-78AF-4077-A7A5-99FC9BAB4B84}
 		{120B6227-5B4A-4F28-ABC3-643CDCF8A1B5} = {5501E0A1-78AF-4077-A7A5-99FC9BAB4B84}
 		{4A7333D2-63CE-43CA-B5F8-72DD7795B3E1} = {5501E0A1-78AF-4077-A7A5-99FC9BAB4B84}
+		{1F8AD1C4-C006-4083-9BC3-A79EBD3354AB} = {4A7333D2-63CE-43CA-B5F8-72DD7795B3E1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {317F561C-C05F-4D74-BDF1-A1289C5DCDAC}
