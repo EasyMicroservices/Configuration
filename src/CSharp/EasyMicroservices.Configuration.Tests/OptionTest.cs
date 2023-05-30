@@ -1,4 +1,5 @@
-﻿using EasyMicroservices.Configuration.Models;
+﻿using EasyMicroservices.Configuration.Interfaces;
+using EasyMicroservices.Configuration.Models;
 using EasyMicroservices.FileManager.Providers.PathProviders;
 using System;
 using System.IO;
@@ -7,8 +8,9 @@ using Xunit;
 
 namespace EasyMicroservices.Configuration.Tests
 {
-    public class OptionTest : TestBase
+    public class OptionTest 
     {
+
         [InlineData("my.json", @"C:\Users\admin", false)]
         [InlineData("ConfigurationFile.json", @"C:\Users\admin2", true)]
         [Theory]
