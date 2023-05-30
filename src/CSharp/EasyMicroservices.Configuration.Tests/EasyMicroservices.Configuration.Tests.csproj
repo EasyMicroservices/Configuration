@@ -7,7 +7,7 @@
     </When>
     <Otherwise>
       <PropertyGroup>
-        <TargetFrameworks>netcoreapp3.1;net6.0;net48;net7.0</TargetFrameworks>
+        <TargetFrameworks>netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
       </PropertyGroup>
     </Otherwise>
   </Choose>
@@ -17,6 +17,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EasyMicroservices.FileManager" Version="0.0.0.3" />
+    <PackageReference Include="EasyMicroservices.Serialization.Newtonsoft.Json" Version="0.0.0.1" />
     <PackageReference Include="EasyMicroservices.Tests" Version="0.0.0.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -29,13 +31,43 @@
 	</ItemGroup>
   
 	<ItemGroup>
+	  <None Remove="appsettings.json" />
 	  <None Remove="Resources\Config.json" />
 	  <None Remove="Resources\EmptyConfigFile.json" />
 	  <None Remove="Resources\InvalidConfigFile.json" />
 	</ItemGroup>
   
 	<ItemGroup>
+	  <Content Include="appsettings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+  
+	<ItemGroup>
+	  <ProjectReference Include="..\EasyMicroservices.Configuration.MicrosoftConfiguration\EasyMicroservices.Configuration.MicrosoftConfiguration.csproj" />
 	  <ProjectReference Include="..\EasyMicroservices.Configuration.JsonFileConfig\EasyMicroservices.Configuration.JsonFileConfig.csproj" />
+	  <ProjectReference Include="..\EasyMicroservices.Configuration.SystemConfiguration\EasyMicroservices.Configuration.SystemConfiguration.csproj" />
+	</ItemGroup>
+  
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources\Config.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\EmptyConfigFile.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\ExactConfigFile.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\InvalidConfigFile.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\LessConfigFile.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\MoreConfigFile.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 </Project>

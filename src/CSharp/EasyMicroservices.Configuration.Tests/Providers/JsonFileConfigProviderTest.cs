@@ -1,19 +1,23 @@
 using EasyMicroservices.Configuration.Interfaces;
 using EasyMicroservices.Configuration.JsonConfig.Providers;
 using EasyMicroservices.Configuration.Models;
+using EasyMicroservices.Configuration.Tests.Models;
+using EasyMicroservices.FileManager.Providers.DirectoryProviders;
+using EasyMicroservices.FileManager.Providers.FileProviders;
 using EasyMicroservices.FileManager.Providers.PathProviders;
 using EasyMicroservices.Serialization.Interfaces;
 using EasyMicroservices.Serialization.Newtonsoft.Json.Providers;
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EasyMicroservices.Configuration.Tests
+namespace EasyMicroservices.Configuration.Tests.Providers
 {
-    public class ConfigTest : TestBase
+    public class JsonFileConfigProviderTest : BaseConfigurationProviderTest
     {
-        public ConfigTest()
+        public JsonFileConfigProviderTest() : base(new JsonConfigProvider(new Option(new SystemPathProvider(), Path.Combine("Resources", "Config.json")), new DiskFileProvider(new DiskDirectoryProvider(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources"))), new NewtonsoftJsonProvider()))
         {
 
         }
