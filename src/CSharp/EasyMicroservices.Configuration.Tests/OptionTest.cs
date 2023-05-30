@@ -8,7 +8,7 @@ using Xunit;
 
 namespace EasyMicroservices.Configuration.Tests
 {
-    public class OptionTest 
+    public class OptionTest
     {
 
         [InlineData("my.json", @"C:\Users\admin", false)]
