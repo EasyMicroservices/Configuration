@@ -22,7 +22,7 @@ namespace EasyMicroservices.Configuration.Tests.Providers
 
         }
 
-        ITextSerialization GetSerializer()
+        ITextSerializationProvider GetSerializer()
         {
             return new NewtonsoftJsonProvider();
         }
