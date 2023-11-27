@@ -25,7 +25,7 @@ namespace EasyMicroservices.Configuration.JsonConfig.Providers
         /// <param name="fileManagerProvider"></param>
         /// <param name="textSerialization"></param>
         /// <returns></returns>
-        public JsonConfigProvider(Option option, IFileManagerProvider fileManagerProvider, ITextSerialization textSerialization)
+        public JsonConfigProvider(Option option, IFileManagerProvider fileManagerProvider, ITextSerializationProvider textSerialization)
         {
             Option = option ?? new Option(new SystemPathProvider());
             _fileManagerProvider = fileManagerProvider;
@@ -37,7 +37,7 @@ namespace EasyMicroservices.Configuration.JsonConfig.Providers
         /// </summary>
         /// <param name="fileManagerProvider"></param>
         /// <param name="textSerialization"></param>
-        public JsonConfigProvider(IFileManagerProvider fileManagerProvider, ITextSerialization textSerialization)
+        public JsonConfigProvider(IFileManagerProvider fileManagerProvider, ITextSerializationProvider textSerialization)
             : this(null, fileManagerProvider, textSerialization)
         {
 
@@ -48,7 +48,7 @@ namespace EasyMicroservices.Configuration.JsonConfig.Providers
         /// </summary>
         public Option Option { get; private set; }
         IFileManagerProvider _fileManagerProvider;
-        ITextSerialization _textSerialization;
+        ITextSerializationProvider _textSerialization;
 
         /// <summary>
         /// 

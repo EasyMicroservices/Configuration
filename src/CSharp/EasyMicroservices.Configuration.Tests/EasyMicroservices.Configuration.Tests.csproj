@@ -1,13 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <Choose>
-    <When Condition="$(SolutionFileName.Contains('Net7'))">
+    <When Condition="$(SolutionFileName.Contains('-net'))">
       <PropertyGroup>
-        <TargetFrameworks>net7.0</TargetFrameworks>
+        <TargetFramework>$(SolutionFileName.Split('-')[1].Replace('.sln',''))</TargetFramework>
       </PropertyGroup>
     </When>
     <Otherwise>
       <PropertyGroup>
-        <TargetFrameworks>netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
+        <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
       </PropertyGroup>
     </Otherwise>
   </Choose>
@@ -18,8 +19,8 @@
 
   <ItemGroup>
     <PackageReference Include="EasyMicroservices.FileManager" Version="0.0.0.3" />
-    <PackageReference Include="EasyMicroservices.Serialization.Newtonsoft.Json" Version="0.0.0.1" />
-    <PackageReference Include="EasyMicroservices.Tests" Version="0.0.0.3" />
+    <PackageReference Include="EasyMicroservices.Serialization.Newtonsoft.Json" Version="0.0.0.6" />
+    <PackageReference Include="EasyMicroservices.Tests" Version="0.0.0.9" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
